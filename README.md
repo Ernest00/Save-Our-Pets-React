@@ -45,7 +45,7 @@ Clone el proyecto a un repositorio local en su computadora, acceda a la carpeta 
 `npm install` para descargar todas las dependencias requeridas para el correcto funcionamiento.
 
 Para probar la aplicación en un dispositivo Android real, conecte el smartphone a la computadora por medio de un cable USB.
-Active las opciones de desarrollador del dispositivo móvil. Una vez activadas busque la opción: ** Depuración por USB ** y actívela. Cuando haya hecho todo esto ejecute el comando `npm run android` y espere hasta que el proyecto se termine de preparar, puede ver el detalle en la consola de comandos de su ordenador. Cuando el proyecto esté listo podrá visualizar la aplicación en su móvil.
+Active las opciones de desarrollador del dispositivo móvil. Una vez activadas busque la opción: **Depuración por USB** y actívela. Cuando haya hecho todo esto ejecute el comando `npm run android` y espere hasta que el proyecto se termine de preparar, puede ver el detalle en la consola de comandos de su ordenador. Cuando el proyecto esté listo podrá visualizar la aplicación en su móvil.
 
 Para probar la aplicación usando AVD de Android Studio simplemente use el comando `npm run android` y se prepará el proyecto, una vez
 esté listo automáticamente se mostrará el dispositivo Android emulado en su computadora junto con la aplicación. Nota: para que este método
