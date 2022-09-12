@@ -9,11 +9,11 @@ Dicha aplicación es compatible para móviles con sistemas operativos Android e 
 ## Integrantes del proyecto
 
 Alumno - carnet - grupo teórico
-* ** Grande Menjivar, William Adonis - GM181938 - 02T ** 
-* ** Gutierrez Solorzano, Henry Bryan - GS181939 - 02T **
-* ** López Abarca, Roberto Carlos - LA181955 - 02T **
-* ** Marroquín Anaya, Bryan Ernesto - MA181956 -  02T **
-* ** Menjivar Girón, Johan Anthony - MG182330 - 02T **
+* **Grande Menjivar, William Adonis - GM181938 - 02T** 
+* **Gutierrez Solorzano, Henry Bryan - GS181939 - 02T**
+* **López Abarca, Roberto Carlos - LA181955 - 02T**
+* **Marroquín Anaya, Bryan Ernesto - MA181956 -  02T**
+* **Menjivar Girón, Johan Anthony - MG182330 - 02T**
 
 ## Link de Trello: Tablero Kanban
 
@@ -21,8 +21,10 @@ https://trello.com/b/SiiKk37W/tablero-kanban-sop
 
 ## Link Diseño UI/UX mockups
 
+https://drive.google.com/file/d/1MqaqdX66A0SUznphCYm_dDV9CKGOloID/view?usp=sharing
+
 ## Licencia Creative Commons
-La licencia utilizada es: CC0 1.0 Universal (CC0 1.0) Public Domain Dedication.
+La licencia utilizada es: **CC0 1.0 Universal (CC0 1.0) Public Domain Dedication.**
 
 La dedicación de dominio público de Creative Commons CC0 renuncia a los intereses de derechos de autor en un trabajo que ha creado y lo dedica al dominio público mundial. Use CC0 para optar por no recibir derechos de autor por completo y asegurarse de que su trabajo tenga el alcance más amplio. 
 
