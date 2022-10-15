@@ -116,7 +116,10 @@ const styles = StyleSheet.create({
     contenedor: {
         flex: 1,
         backgroundColor: colores.azul,
-        padding: 10,
+        paddingTop: 10,
+        paddingBottom: 10,
+        paddingLeft: 20,
+        paddingRight: 20,
     },
     encabezado: {
         alignItems: 'center',

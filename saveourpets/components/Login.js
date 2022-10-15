@@ -1,19 +1,42 @@
 import React, {useState} from 'react';
-import {Text, StyleSheet, View, TextInput, Button, Image} from 'react-native';
+import {Text, StyleSheet, View, Image} from 'react-native';
+import { TextInput, Button } from 'react-native-paper';
 import colores from '../src/utils/colores';
 import logo from '../assets/img/logo.png'
 
 const Login = () => {
+    const [usuario, setUsuario] = useState('');
+    const [password, setPassword] = useState('');
     return (
         <View style={styles.contenedor}>
             <View style={styles.contenido}>
                 <Text style={styles.titulo}>Save Our Pets</Text>
                 <Image source={logo} resizeMode="cover"  style={styles.logo} />
                 <Text style={styles.texto}>Iniciar sesión</Text>
-                <View>
-                    <TextInput placeholder='Usuario' style={styles.input} />
-                    <TextInput placeholder='Contraseña' secureTextEntry={true} style={[styles.input, styles.marginBottom]} />
-                    <Button title="Acceder" color={colores.rojo} />
+                <View style={styles.formulario}>
+                    <TextInput
+                        label="Usuario"
+                        value={usuario}
+                        onChangeText={usuario => setUsuario(usuario)}
+                        selectionColor={colores.azul}
+                        underlineColor={colores.azul}
+                        activeUnderlineColor={colores.rojo}
+                        style={styles.input}
+                    />
+                    <TextInput
+                        label="Contraseña"
+                        secureTextEntry
+                        value={password}
+                        onChangeText={password => setPassword(password)}
+                        selectionColor={colores.azul}
+                        underlineColor={colores.azul}
+                        activeUnderlineColor={colores.rojo}
+                        style={styles.input}
+                        right={<TextInput.Icon name="eye" />}
+                    />
+                    <Button icon="arrow-right-bold" mode="contained" onPress={() => console.log('Pressed')} style={styles.marginTop} color={colores.rojo} >
+                        Acceder
+                    </Button>
                 </View>
             </View>
         </View>
@@ -46,19 +69,14 @@ const styles = StyleSheet.create({
         height: 200,
     },
     input: {
-        backgroundColor: colores.blanco,
-        color: '#000',
-        padding: 8,
-        borderRadius: 4,
-        width: 310,
-        marginTop: 10,
-        marginBottom: 10,
-        fontSize: 16,
-        borderWidth: 1,
-        borderColor: colores.rojo,
+        marginTop: 7,
+        marginBottom: 7,
     },
-    marginBottom: {
-        marginBottom: 20,
+    marginTop: {
+        marginTop: 20,
+    },
+    formulario: {
+        width: 330,
     }
 });
 
