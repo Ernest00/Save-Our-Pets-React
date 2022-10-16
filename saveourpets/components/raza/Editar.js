@@ -3,10 +3,10 @@ import { StyleSheet, View } from 'react-native';
 import colores from '../../src/utils/colores';
 import Formulario from './Formulario';
 
-const Editar = () => {
+const Editar = ({ navigation }) => {
     return (
         <View style={styles.contenedor}>
-            <Formulario titulo="Editar raza" textoBoton="Actualizar" icono="pencil" />
+            <Formulario titulo="Editar raza" textoBoton="Actualizar" icono="pencil" navigation={navigation} />
         </View>
     );
 }

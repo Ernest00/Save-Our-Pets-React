@@ -3,13 +3,23 @@ import { View, Text, StyleSheet } from 'react-native';
 import colores from '../../src/utils/colores';
 import { TextInput, Button } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
+import Ionicons from '@expo/vector-icons/AntDesign';
 
-const Formulario = ({ titulo, textoBoton, icono }) => {
+const Formulario = ({ titulo, textoBoton, icono, navigation }) => {
     const [nombre, setNombre] = useState('');
     const [especie, setEspecie] = useState('');
     return (
         <View>
-            <Text style={styles.titulo}>{titulo}</Text>
+            <View style={styles.volver}>
+                <Ionicons 
+                    name={"left"} 
+                    size={32} 
+                    color={colores.blanco} 
+                    onPress={() => { navigation.navigate('razas') }}
+                    style={styles.iconoVolver}
+                />
+                <Text style={styles.titulo}>{titulo}</Text>
+            </View>
             <View>
                 <TextInput
                     label="Nombre"
@@ -56,6 +66,12 @@ const styles = StyleSheet.create({
     marginTop: {
         marginTop: 20,
     },
+    volver: {
+        flexDirection: 'row'
+    },
+    iconoVolver: {
+        marginRight: 10
+    }
 });
 
 export default Formulario;

@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import colores from '../../src/utils/colores';
 import perrito from '../../assets/img/perro.png';
-import { TextInput } from 'react-native-paper';
+import { TextInput, Button } from 'react-native-paper';
 import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
 import {Picker} from '@react-native-picker/picker';
+import Ionicons from '@expo/vector-icons/AntDesign';
 
-const Formulario = () => { 
+const Formulario = ({ navigation }) => { 
     const [nombres, setNombres] = useState('');
     const [apellidos, setApellidos] = useState('');
     const [telefono, setTelefono] = useState('');
@@ -20,8 +21,17 @@ const Formulario = () => {
     return (
         <ScrollView>
             <View style={styles.contenedor}>
-                <View style={styles.encabezado}>
+                <View style={styles.volver}>
+                    <Ionicons 
+                        name={"left"} 
+                        size={32} 
+                        color={colores.blanco} 
+                        onPress={() => { navigation.navigate('solicitudAdopcion') }} 
+                        style={styles.iconoVolver}
+                    />
                     <Text style={styles.titulo}>Proceso de adopción</Text>
+                </View>
+                <View style={styles.encabezado}>
                     <Image resizeMode='cover' source={perrito} style={styles.imagen} />
                     <Text style={styles.paso}>Paso 1: Información personal</Text>
                 </View>
@@ -106,6 +116,14 @@ const Formulario = () => {
                         <Picker.Item label="Java" value="java" />
                         <Picker.Item label="JavaScript" value="js" />
                     </Picker>
+                    <Button 
+                        icon="content-save" 
+                        mode="contained" 
+                        color={colores.rojo} 
+                        style={styles.marginTop}
+                    >
+                        Aceptar
+                    </Button>
                 </View>
             </View>
         </ScrollView>
@@ -148,6 +166,16 @@ const styles = StyleSheet.create({
         marginTop: 7,
         marginBottom: 7,
         backgroundColor: colores.blanco,
+    },
+    volver: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
+    iconoVolver: {
+        marginRight: 10
+    },
+    marginTop: {
+        marginTop: 20,
     }
 });
 

@@ -48,6 +48,7 @@ const Inicio = ({ navigation }) => {
                     mode="contained" 
                     onPress={() => navigation.navigate('formularioAdopcion')} 
                     color={colores.rojo} 
+                    disabled={!checked}
                 >
                     Continuar
                 </Button>
