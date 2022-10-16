@@ -4,7 +4,7 @@ import colores from '../../src/utils/colores';
 import Requisito from './Requisito';
 import { Card, Checkbox, Button } from 'react-native-paper';
 
-const Inicio = () => {
+const Inicio = ({ navigation }) => {
     const [checked, setChecked] = React.useState(false);
 
     return (
@@ -43,7 +43,12 @@ const Inicio = () => {
                     />
                     <Text style={styles.texto}>Estoy de acuerdo con lo anterior</Text>
                 </View>
-                <Button icon="arrow-right-bold" mode="contained" onPress={() => console.log('Pressed')} color={colores.rojo} >
+                <Button 
+                    icon="arrow-right-bold" 
+                    mode="contained" 
+                    onPress={() => navigation.navigate('formularioAdopcion')} 
+                    color={colores.rojo} 
+                >
                     Continuar
                 </Button>
             </View>
