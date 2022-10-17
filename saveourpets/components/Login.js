@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {Text, StyleSheet, View, Image} from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import colores from '../src/utils/colores';
-import logo from '../assets/img/logo.png'
+import logo from '../assets/img/logo.png';
 
 const Login = () => {
     const [usuario, setUsuario] = useState('');

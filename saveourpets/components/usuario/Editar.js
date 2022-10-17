@@ -1,12 +1,10 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import colores from '../../src/utils/colores';
-import perrito from '../../assets/img/perro.png';
-import { TextInput } from 'react-native-paper';
-import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
-import {Picker} from '@react-native-picker/picker';
+import { Button, TextInput } from 'react-native-paper';
+import Ionicons from '@expo/vector-icons/MaterialCommunityIcons';
 
-const Formulario = () => { 
+const Editar = () => {
     const [nombres, setNombres] = useState('');
     const [apellidos, setApellidos] = useState('');
     const [telefono, setTelefono] = useState('');
@@ -15,15 +13,15 @@ const Formulario = () => {
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [fechaNacimiento, setFechaNacimiento] = useState('');
-    const [especie, setEspecie] = useState('');
 
     return (
-        <ScrollView>
+        <ScrollView> 
             <View style={styles.contenedor}>
                 <View style={styles.encabezado}>
-                    <Text style={styles.titulo}>Proceso de adopción</Text>
-                    <Image resizeMode='cover' source={perrito} style={styles.imagen} />
-                    <Text style={styles.paso}>Paso 1: Información personal</Text>
+                    <Text style={styles.titulo}>Editar mi perfil</Text>
+                    <View style={styles.icono}>
+                        <Ionicons name="account-edit-outline" size={70} color={colores.blanco} />
+                    </View>
                 </View>
                 <View>
                     <TextInput
@@ -64,7 +62,7 @@ const Formulario = () => {
                         style={styles.input}
                         keyboardType="numeric"
                     />
-                   
+                    
                     <TextInput
                         label="Correo electrónico"
                         value={correo}
@@ -97,16 +95,10 @@ const Formulario = () => {
                         style={styles.input}
                         right={<TextInput.Icon name="eye" />}
                     />
-                    <Picker
-                        style={styles.dropdown}
-                        selectedValue={especie}
-                        onValueChange={(itemValue, itemIndex) =>
-                            setEspecie(itemValue)
-                        }>
-                        <Picker.Item label="Java" value="java" />
-                        <Picker.Item label="JavaScript" value="js" />
-                    </Picker>
                 </View>
+                <Button icon="pencil" mode="contained" onPress={() => alert('Pressed')} style={styles.marginTop} color={colores.rojo} >
+                    Actualizar
+                </Button>
             </View>
         </ScrollView>
     );
@@ -121,34 +113,30 @@ const styles = StyleSheet.create({
         paddingLeft: 20,
         paddingRight: 20,
     },
-    encabezado: {
-        alignItems: 'center',
-    },
     titulo: {
-        textAlign: 'center',
         color: colores.blanco,
-        fontSize: 25,
-        fontWeight: '500',
+        fontSize: 20,
+        padding: 10,
     },
-    paso: {
-       color: colores.blanco,
-       fontSize: 18,
-       margin: 10 
+    encabezado: {
+        alignItems: 'center'
     },
-    imagen: {
-        width: 120,
-        height: 120,
-        margin: 10
+    marginTop: {
+        marginTop: 10
     },
     input: {
         marginTop: 7,
         marginBottom: 7,
     },
-    dropdown: {
-        marginTop: 7,
-        marginBottom: 7,
-        backgroundColor: colores.blanco,
+    icono: {
+        width: 80,
+        height: 80,
+        borderRadius: 100,
+        alignItems: 'center',
+        justifyContent: 'center',
+        backgroundColor: colores.rojo,
+        margin: 10
     }
 });
 
-export default Formulario;
+export default Editar;
