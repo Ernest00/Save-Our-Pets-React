@@ -1,12 +1,17 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import colores from '../../src/utils/colores';
 import Raza from './Raza';
+import { Button } from 'react-native-paper';
+import Ionicons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const Inicio = ({ navigation }) => (
     <View style={styles.contenedor}>
         <Text style={styles.titulo}>Razas</Text>
         <Raza nombre={"Raza 1"} especie={"Especie 1"} navegacion={navigation} />
+        <TouchableOpacity style={styles.boton} onPress={() => { navigation.navigate('crearRaza') }}>
+            <Ionicons name={"plus"} size={40} color={colores.blanco} />
+        </TouchableOpacity>
     </View>
 );
 
@@ -24,6 +29,20 @@ const styles = StyleSheet.create({
         color: colores.blanco,
         marginBottom: 10,
     },
+    boton: {
+        width: 60,
+        height: 60,
+        borderRadius: 100,
+        justifyContent: 'center',
+        alignItems: 'center',
+        backgroundColor: colores.rojo,
+        zIndex: 1000,
+        position: 'absolute',
+        top: '70%',
+        right: 20,
+        elevation: 12,
+        shadowColor: '#000',
+    }
 });
 
 export default Inicio;

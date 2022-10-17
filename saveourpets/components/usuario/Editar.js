@@ -3,8 +3,9 @@ import { View, Text, StyleSheet, ScrollView } from 'react-native';
 import colores from '../../src/utils/colores';
 import { Button, TextInput } from 'react-native-paper';
 import Ionicons from '@expo/vector-icons/MaterialCommunityIcons';
+import Icon from '@expo/vector-icons/AntDesign';
 
-const Editar = () => {
+const Editar = ({ navigation }) => {
     const [nombres, setNombres] = useState('');
     const [apellidos, setApellidos] = useState('');
     const [telefono, setTelefono] = useState('');
@@ -17,8 +18,17 @@ const Editar = () => {
     return (
         <ScrollView> 
             <View style={styles.contenedor}>
-                <View style={styles.encabezado}>
+                <View style={styles.volver}>
+                    <Icon 
+                        name={"left"} 
+                        size={32} 
+                        color={colores.blanco} 
+                        onPress={() => { navigation.navigate('perfil') }} 
+                        style={styles.iconoVolver}
+                    />
                     <Text style={styles.titulo}>Editar mi perfil</Text>
+                </View>
+                <View style={styles.encabezado}>
                     <View style={styles.icono}>
                         <Ionicons name="account-edit-outline" size={70} color={colores.blanco} />
                     </View>
@@ -116,7 +126,6 @@ const styles = StyleSheet.create({
     titulo: {
         color: colores.blanco,
         fontSize: 20,
-        padding: 10,
     },
     encabezado: {
         alignItems: 'center'
@@ -136,6 +145,14 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: colores.rojo,
         margin: 10
+    },
+    volver: {
+        flexDirection: 'row',
+        paddingTop: 5,
+        paddingBottom: 5
+    },
+    iconoVolver: {
+        marginRight: 10
     }
 });
 
