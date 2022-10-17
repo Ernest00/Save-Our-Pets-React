@@ -13,7 +13,6 @@ Alumno - carnet - grupo teórico
 * **Gutierrez Solorzano, Henry Bryan - GS181939 - 02T**
 * **López Abarca, Roberto Carlos - LA181955 - 02T**
 * **Marroquín Anaya, Bryan Ernesto - MA181956 -  02T**
-* **Menjivar Girón, Johan Anthony - MG182330 - 02T**
 
 ## Link de Trello: Tablero Kanban
 
