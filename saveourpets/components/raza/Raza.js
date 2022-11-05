@@ -6,7 +6,7 @@ import colores from '../../src/utils/colores';
 const LeftContent = props => <Avatar.Icon {...props} style={styles.icono} icon="dog" color={colores.blanco}  />
 
 const Raza = ({nombre, especie, navegacion }) => (
-    <Card>
+    <Card style={styles.tarjeta}>
         <Card.Title title={nombre} subtitle={especie} left={LeftContent} />
         <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
         <Card.Actions>
@@ -25,6 +25,10 @@ const Raza = ({nombre, especie, navegacion }) => (
 const styles = StyleSheet.create({
     icono: {
         backgroundColor: colores.azul
+    },
+    tarjeta: {
+        marginTop: 10,
+        marginBottom: 10
     }
 });
 

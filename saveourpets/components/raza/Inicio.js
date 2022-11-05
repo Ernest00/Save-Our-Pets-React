@@ -1,19 +1,56 @@
-import React from 'react';
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import colores from '../../src/utils/colores';
 import Raza from './Raza';
 import { Button } from 'react-native-paper';
 import Ionicons from '@expo/vector-icons/MaterialCommunityIcons';
 
-const Inicio = ({ navigation }) => (
-    <View style={styles.contenedor}>
-        <Text style={styles.titulo}>Razas</Text>
-        <Raza nombre={"Raza 1"} especie={"Especie 1"} navegacion={navigation} />
-        <TouchableOpacity style={styles.boton} onPress={() => { navigation.navigate('crearRaza') }}>
-            <Ionicons name={"plus"} size={40} color={colores.blanco} />
-        </TouchableOpacity>
-    </View>
-);
+const Inicio = ({ navigation }) => {
+    const [razas, setRazas] = useState([]);
+
+    useEffect(() => {
+        getRazas()
+    }, []);
+
+    const getRazas = () => {
+        fetch('https://api-save-our-pets.mktvirtual.net/api/razas', {
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+            method: 'GET',
+        })
+        .then(response => response.json()) 
+        .then(json => {
+            setRazas(json);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+    return (
+        <ScrollView>
+            <View style={styles.contenedor}>
+                <Text style={styles.titulo}>Razas</Text>
+                <TouchableOpacity style={styles.boton} onPress={() => { navigation.navigate('crearRaza') }}>
+                    <Ionicons name={"plus"} size={40} color={colores.blanco} />
+                </TouchableOpacity>
+                {
+                    razas.map((datos) => {
+                        return (
+                            <Raza 
+                                nombre={datos.nombre} 
+                                especie={datos.especie} 
+                                navegacion={navigation} 
+                                key={datos.id_raza} 
+                            />
+                        );
+                    })
+                }
+            </View>
+        </ScrollView>
+    );
+}
 
 const styles = StyleSheet.create({
     contenedor: {
@@ -36,10 +73,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         alignItems: 'center',
         backgroundColor: colores.rojo,
-        zIndex: 1000,
-        position: 'absolute',
-        top: '70%',
-        right: 20,
         elevation: 12,
         shadowColor: '#000',
     }

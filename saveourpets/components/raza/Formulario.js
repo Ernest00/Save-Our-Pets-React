@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet } from 'react-native';
 import colores from '../../src/utils/colores';
 import { TextInput, Button } from 'react-native-paper';
@@ -8,6 +8,47 @@ import Ionicons from '@expo/vector-icons/AntDesign';
 const Formulario = ({ titulo, textoBoton, icono, navigation }) => {
     const [nombre, setNombre] = useState('');
     const [especie, setEspecie] = useState('');
+    const [listadoEspecies, setListadoEspecies] = useState([]);
+
+    useEffect(() => {
+        getEspecies()
+    }, []);
+
+    const getEspecies = () => {
+        fetch('https://api-save-our-pets.mktvirtual.net/api/especies', {
+            headers: {
+                'Content-Type' : 'application/json',
+            },
+            method: 'GET',
+        })
+        .then(response => response.json()) 
+        .then(json => {
+            setListadoEspecies(json);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    }
+
+    const crearRaza = ({nombre, especie}) => {
+        let formData = new FormData();
+        formData.append('nombre', nombre);
+        formData.append('id_especie', especie);
+        console.log(formData);
+
+        fetch('https://api-save-our-pets.mktvirtual.net/api/razas/crear', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json()) 
+        .then(json => {
+           alert(json);
+        })
+        .catch(err => {
+            console.log(err);
+        });
+    };
+
     return (
         <View>
             <View style={styles.volver}>
@@ -33,13 +74,26 @@ const Formulario = ({ titulo, textoBoton, icono, navigation }) => {
                 <Picker
                     style={styles.dropdown}
                     selectedValue={especie}
-                    onValueChange={(itemValue, itemIndex) =>
+                    onValueChange={(itemValue) =>
                         setEspecie(itemValue)
                     }>
-                    <Picker.Item label="Java" value="java" />
-                    <Picker.Item label="JavaScript" value="js" />
+                    {
+                        listadoEspecies.map((datos, i) => (
+                            <Picker.Item 
+                                label={datos.nombre} 
+                                value={datos.id_especie} 
+                                key={i}
+                            />
+                        ))
+                    }
                 </Picker>
-                <Button icon={icono} mode="contained" onPress={() => console.log('Pressed')} style={styles.marginTop} color={colores.rojo} >
+                <Button 
+                    icon={icono} 
+                    mode="contained" 
+                    onPress={ crearRaza(nombre, especie) } 
+                    style={styles.marginTop} 
+                    color={colores.rojo} 
+                >
                     {textoBoton}
                 </Button>
             </View>
@@ -64,7 +118,7 @@ const styles = StyleSheet.create({
         backgroundColor: colores.blanco,
     },
     marginTop: {
-        marginTop: 20,
+        marginTop: 10,
     },
     volver: {
         flexDirection: 'row'
