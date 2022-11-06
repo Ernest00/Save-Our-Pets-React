@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import colores from '../../src/utils/colores';
 import Raza from './Raza';
-import { Button } from 'react-native-paper';
 import Ionicons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const Inicio = ({ navigation }) => {
     const [razas, setRazas] = useState([]);
-
-    useEffect(() => {
-        getRazas()
-    }, []);
+    const [loading, setLoading] = useState(true);
 
     const getRazas = () => {
         fetch('https://api-save-our-pets.mktvirtual.net/api/razas', {
@@ -22,25 +18,37 @@ const Inicio = ({ navigation }) => {
         .then(response => response.json()) 
         .then(json => {
             setRazas(json);
+            setLoading(false);
         })
         .catch(err => {
             console.log(err);
         });
     }
 
+    useEffect(() => {
+        navigation.addListener('focus', getRazas);
+    }, [navigation]);
+
+    if (loading) {
+        return (
+            <View>
+                <ActivityIndicator size="large" color="#9e9e9e" />
+            </View>
+        );
+    }
+
     return (
         <ScrollView>
             <View style={styles.contenedor}>
                 <Text style={styles.titulo}>Razas</Text>
-                <TouchableOpacity style={styles.boton} onPress={() => { navigation.navigate('crearRaza') }}>
+                <TouchableOpacity style={styles.boton} onPress={() => { navigation.navigate('crearRaza', {nombre: '', especie: ''}) }}>
                     <Ionicons name={"plus"} size={40} color={colores.blanco} />
                 </TouchableOpacity>
                 {
                     razas.map((datos) => {
                         return (
                             <Raza 
-                                nombre={datos.nombre} 
-                                especie={datos.especie} 
+                                datos={datos}
                                 navegacion={navigation} 
                                 key={datos.id_raza} 
                             />
