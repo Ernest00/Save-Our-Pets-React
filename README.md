@@ -13,7 +13,6 @@ Alumno - carnet - grupo teórico
 * **Gutierrez Solorzano, Henry Bryan - GS181939 - 02T**
 * **López Abarca, Roberto Carlos - LA181955 - 02T**
 * **Marroquín Anaya, Bryan Ernesto - MA181956 -  02T**
-* **Menjivar Girón, Johan Anthony - MG182330 - 02T**
 
 ## Link de Trello: Tablero Kanban
 
@@ -22,6 +21,10 @@ https://trello.com/b/SiiKk37W/tablero-kanban-sop
 ## Link Diseño UI/UX mockups
 
 https://drive.google.com/drive/folders/1ySkq1ntdTAh6eoN-L_TYJm686BLZpQdB
+
+## Link del Video de funcionamiento de App
+
+https://drive.google.com/file/d/13PYKKo3BkTofCMLbd2cbgszDo3_WbaZB/view?usp=sharing
 
 ## Licencia Creative Commons
 La licencia utilizada es: **CC0 1.0 Universal (CC0 1.0) Public Domain Dedication.**
