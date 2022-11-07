@@ -30,8 +30,8 @@ const Editar = ({ navigation, route }) => {
 
     if (loading) {
         return (
-            <View>
-                <ActivityIndicator size="large" color="#9e9e9e" />
+            <View style={styles.loader}>
+                <ActivityIndicator size="large" color={colores.rojo} />
             </View>
         );
     }
@@ -58,6 +58,12 @@ const styles = StyleSheet.create({
         paddingRight: 20,
         paddingLeft: 20,
         backgroundColor: colores.azul,
+    },
+    loader: {
+        flex: 1,
+        backgroundColor: colores.azul,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 

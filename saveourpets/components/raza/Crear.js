@@ -3,7 +3,7 @@ import { StyleSheet, View } from 'react-native';
 import colores from '../../src/utils/colores';
 import Formulario from './Formulario';
 
-const Crear = ({ navigation, route }) => {
+const Crear = ({ navigation }) => {
     return (
         <View style={styles.contenedor}>
             <Formulario 

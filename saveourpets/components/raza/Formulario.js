@@ -1,20 +1,42 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert } from 'react-native';
+import { View, Text, StyleSheet, Alert, ActivityIndicator, Image } from 'react-native';
 import colores from '../../src/utils/colores';
 import { TextInput, Button } from 'react-native-paper';
 import { Picker } from '@react-native-picker/picker';
 import Ionicons from '@expo/vector-icons/AntDesign';
+import * as ImagePicker from 'expo-image-picker';
 
 const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) => {
     const [state, setState] = useState({
         id_raza: '',
         nombre: '',
-        especie: ''
+        especie: '',
+        imagen: null,
     });
     const [listadoEspecies, setListadoEspecies] = useState([]);
+    const [loading, setLoading] = useState(true);
+
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+    
+        console.log(result);
+    
+        if (!result.cancelled) {
+            setState({
+                ...state,
+                imagen: result.uri
+            });
+        }
+    };
 
     const getEspecies = () => {
-        fetch('https://api-save-our-pets.mktvirtual.net/api/especies', {
+        fetch('http://localhost:8000/api/especies', {
             headers: {
                 'Content-Type' : 'application/json',
             },
@@ -23,6 +45,7 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
         .then(response => response.json()) 
         .then(json => {
             setListadoEspecies(json);
+            setLoading(false);
         })
         .catch(err => {
             console.log(err);
@@ -32,7 +55,6 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
     useEffect(() => {
         getEspecies();
         setState({
-            ...state, 
             id_raza: datos.id_raza,
             nombre: datos.nombre, 
             especie: datos.id_especie
@@ -47,8 +69,9 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
         let formData = new FormData();
         formData.append('nombre', state.nombre);
         formData.append('id_especie', state.especie);
+        formData.append('imagen', state.imagen)
 
-        fetch('https://api-save-our-pets.mktvirtual.net/api/razas/crear', {
+        fetch('http://localhost:8000/api/razas/crear', {
             headers: {
                 'Content-Type' : 'multipart/form-data'
             },
@@ -77,7 +100,7 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
         formData.append('nombre', state.nombre);
         formData.append('id_especie', state.especie);
 
-        fetch(`https://api-save-our-pets.mktvirtual.net/api/razas/actualizar/${state.id_raza}`, {
+        fetch(`http://localhost:8000/api/razas/actualizar/${state.id_raza}`, {
             headers: {
                 'Content-Type' : 'multipart/form-data'
             },
@@ -98,6 +121,14 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
         .catch(err => {
             console.log(err);
         });
+    }
+
+    if (loading) {
+        return (
+            <View style={styles.loader}>
+                <ActivityIndicator size="large" color={colores.rojo} />
+            </View>
+        );
     }
 
     return (
@@ -138,6 +169,27 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
                     }
                 </Picker>
                 <Button 
+                    icon="folder-upload"
+                    mode="contained"
+                    style={styles.marginTop}
+                    color={colores.blanco}
+                    onPress={pickImage}
+                >
+                    Subir imagen
+                </Button>
+                <View>
+                    { state.imagen && 
+                        (
+                            <>
+                                <Text style={styles.tituloImagen}>Vista previa:</Text>
+                                <View style={styles.imagen}> 
+                                    <Image source={{ uri: state.imagen }} resizeMode="contain" style={{ width: 200, height: 200 }} /> 
+                                </View>
+                            </>
+                        )
+                    }
+                </View>
+                <Button 
                     icon={icono} 
                     mode="contained" 
                     onPress={() => {
@@ -162,6 +214,11 @@ const styles = StyleSheet.create({
         color: colores.blanco,
         marginBottom: 10,
     },
+    tituloImagen: {
+        fontSize: 17,
+        color: colores.blanco,
+        marginTop: 10,
+    },
     input: {
         marginTop: 7,
         marginBottom: 7,
@@ -180,6 +237,16 @@ const styles = StyleSheet.create({
     },
     iconoVolver: {
         marginRight: 10
+    },
+    loader: {
+        flex: 1,
+        backgroundColor: colores.azul,
+        justifyContent: 'center',
+        alignItems: 'center'
+    },
+    imagen: {
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 

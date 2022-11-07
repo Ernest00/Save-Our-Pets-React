@@ -9,7 +9,7 @@ const Inicio = ({ navigation }) => {
     const [loading, setLoading] = useState(true);
 
     const getRazas = () => {
-        fetch('https://api-save-our-pets.mktvirtual.net/api/razas', {
+        fetch('http://localhost:8000/api/razas', {
             headers: {
                 'Content-Type' : 'application/json',
             },
@@ -31,8 +31,8 @@ const Inicio = ({ navigation }) => {
 
     if (loading) {
         return (
-            <View>
-                <ActivityIndicator size="large" color="#9e9e9e" />
+            <View style={styles.loader}>
+                <ActivityIndicator size="large" color={colores.rojo} />
             </View>
         );
     }
@@ -41,7 +41,7 @@ const Inicio = ({ navigation }) => {
         <ScrollView>
             <View style={styles.contenedor}>
                 <Text style={styles.titulo}>Razas</Text>
-                <TouchableOpacity style={styles.boton} onPress={() => { navigation.navigate('crearRaza', {nombre: '', especie: ''}) }}>
+                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('crearRaza') }>
                     <Ionicons name={"plus"} size={40} color={colores.blanco} />
                 </TouchableOpacity>
                 {
@@ -83,6 +83,12 @@ const styles = StyleSheet.create({
         backgroundColor: colores.rojo,
         elevation: 12,
         shadowColor: '#000',
+    },
+    loader: {
+        flex: 1,
+        backgroundColor: colores.azul,
+        justifyContent: 'center',
+        alignItems: 'center'
     }
 });
 

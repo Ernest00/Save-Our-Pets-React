@@ -7,6 +7,7 @@ import Login from './Login';
 import formularioAdopcion from './adopcion/Formulario';
 import CrearRaza from './raza/Crear';
 import EditarRaza from './raza/Editar';
+import EliminarRaza from './raza/Eliminar';
 import EditarPerfil from './usuario/Editar';
 import Perfil from './usuario/Perfil';
 import SolicitudAdopcion from './adopcion/Inicio';
@@ -78,6 +79,14 @@ const Navegacion = () => {
                         drawerItemStyle: { height: 0 },
                     }} 
                 /> 
+                <Drawer.Screen 
+                    name="eliminarRaza" 
+                    component={EliminarRaza} 
+                    options={{
+                        title: 'Eliminar raza',
+                        drawerItemStyle: { height: 0 },
+                    }} 
+                />
             </Drawer.Navigator>
         </NavigationContainer>
     );
