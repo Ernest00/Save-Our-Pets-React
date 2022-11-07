@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image } from 'react-native';
 import logo from '../../assets/img/logo.png';
 import colores from '../../src/utils/colores';
 import { Button } from 'react-native-paper';
+import firebase from '../../src/utils/firebase';
 
 const Perfil = ({ navigation }) => (
     <View style={styles.contenedor}>
@@ -25,6 +26,10 @@ const Perfil = ({ navigation }) => (
             color={colores.rojo} >
             Editar
         </Button>
+<Button icon="arrow-right-bold" mode="contained" onPress={() => firebase.auth().signOut(
+)} style={styles.marginTop} color={colores.rojo} >
+                        Cerrar Sesión
+                    </Button>
     </View>
 );
 

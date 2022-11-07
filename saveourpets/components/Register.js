@@ -6,64 +6,90 @@ import logo from '../assets/img/logo.png';
 import firebase from '../src/utils/firebase';
 import {validateEmail} from '../src/utils/validations';
 
-export default function Login(props){
-    const {changeForm} = props;
+export default function Register(props){
+const {changeForm} = props;
 const [formData, setFormData] = useState(defaultValue());
 const [formError, setFormError] = useState({});
-const login = () => {
-let errors = {};
-if (!formData.email || !formData.password) {
-if (!formData.email) errors.email = true;
-if (!formData.password) errors.password = true;
-} else if (!validateEmail(formData.email)) {
-errors.email = true;
-} else {
-firebase
-.auth()
-.signInWithEmailAndPassword(formData.email, formData.password)
-.catch(() => {
-setFormError({
-email: true,
-password: true,
-});
-});
-}
-setFormError(errors);
-};
-const onChange = (e, type) => {
-setFormData({...formData, [type]: e.nativeEvent.text});
-};
+const register = () => {
+    let errors = {};
+    if (!formData.email || !formData.password || !formData.repeatPassword
+    ) {
+    if (!formData.email) errors.email = true;
+    if (!formData.password) errors.password = true;
+    if (!formData.repeatPassword) errors.repeatPassword = true;
+    console.log("hola4");
+    } else if (!validateEmail(formData.email)) {
+    errors.email = true;
+    console.log("hola3");
+    //console.log(formData.email);
+    } else if (formData.password !== formData.repeatPassword) {
+    errors.password = true;
+    errors.repeatPassword = true;
+    console.log("hola2");
+    console.log(formData.password);
+    console.log(formData.repeatPassword);
+    } else if (formData.password.length < 6) {
+    errors.password = true;
+    errors.repeatPassword = true;
+    console.log("hola");
+    } else {
+    firebase
+    .auth()
+    .createUserWithEmailAndPassword(formData.email, formData.password
+    )
+    .catch(() => {
+    setFormError({
+    email: true,
+    password: true,
+    repeatPassword: true,
+    });
+    });
+    }
+    setFormError(errors);
+    };
     return (
         <View style={styles.contenedor}>
             <View style={styles.contenido}>
                 <Text style={styles.titulo}>Save Our Pets</Text>
                 <Image source={logo} resizeMode="cover"  style={styles.logo} />
-                <Text style={styles.texto}>Iniciar sesión</Text>
+                <Text style={styles.texto}>Registrarse</Text>
                 <View style={styles.formulario}>
                     <TextInput
-                        label="Usuario" 
-                        onChange={(e) => onChange(e, 'email')}
+                        label="Correo electrónico" 
+                        onChange={(e) => setFormData({...formData, email: e.nativeEvent.text})}
                         selectionColor={colores.azul}
                         underlineColor={colores.azul}
                         activeUnderlineColor={colores.rojo}
-                        style={styles.input}
+                        style={[styles.input, formError.email && styles.error]}
                     />
                     <TextInput
                         label="Contraseña"
                         secureTextEntry
-                        onChange={(e) => onChange(e,'password')}
+                        onChange={(e) => setFormData({...formData, password: e.nativeEvent.text})}
                         selectionColor={colores.azul}
                         underlineColor={colores.azul}
                         activeUnderlineColor={colores.rojo}
-                        style={styles.input}
+                        style={[styles.input, formError.password && styles.error]}
                         right={<TextInput.Icon name="eye" />}
                     />
-                    <Button icon="arrow-right-bold" mode="contained" onPress={login} style={styles.marginTop} color={colores.rojo} >
+                    <TextInput
+                        label="Repetir Contraseña"
+                        secureTextEntry
+                        onChange={(e) =>
+                            setFormData({...formData, repeatPassword: e.nativeEvent.text})
+                            }
+                        selectionColor={colores.azul}
+                        underlineColor={colores.azul}
+                        activeUnderlineColor={colores.rojo}
+                        style={[styles.input , formError.repeatPassword && styles.error]}
+                        right={<TextInput.Icon name="eye" />}
+                    />
+                    <Button icon="arrow-right-bold" mode="contained" onPress={register} style={styles.marginTop} color={colores.rojo} >
                         Acceder
                     </Button>
                     
                     <Button icon="arrow-right-bold" mode="contained" onPress={changeForm} style={styles.marginTop} color={colores.rojo} >
-                        Registrarse
+                        Iniciar Sesión
                     </Button>
                 </View>
             </View>
@@ -75,6 +101,7 @@ function defaultValue() {
     return {
     email: '',
     password: '',
+    repeatPassword: '',
     };
     }
 
