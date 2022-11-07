@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, ScrollView } from 'react-native';
 import colores from '../../src/utils/colores';
 import perrito from '../../assets/img/perro.png';
 import { TextInput, Button } from 'react-native-paper';
-import { DateTimePickerAndroid } from '@react-native-community/datetimepicker';
+import DateTimePickerModal from "react-native-modal-datetime-picker";
 import {Picker} from '@react-native-picker/picker';
 import Ionicons from '@expo/vector-icons/AntDesign';
 
@@ -17,6 +17,20 @@ const Formulario = ({ navigation }) => {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [fechaNacimiento, setFechaNacimiento] = useState('');
     const [especie, setEspecie] = useState('');
+    const [isDatePickerVisible, setDatePickerVisibility] = useState(false);
+
+    const showDatePicker = () => {
+        setDatePickerVisibility(true);
+    };
+    
+    const hideDatePicker = () => {
+        setDatePickerVisibility(false);
+    };
+    
+    const handleConfirm = (date) => {
+        console.warn("A date has been picked: ", date);
+        hideDatePicker();
+    };
 
     return (
         <ScrollView>
@@ -74,7 +88,15 @@ const Formulario = ({ navigation }) => {
                         style={styles.input}
                         keyboardType="numeric"
                     />
-                   
+                    <View>
+                        <Button title="Show Date Picker" onPress={showDatePicker} />
+                        <DateTimePickerModal
+                            isVisible={isDatePickerVisible}
+                            mode="date"
+                            onConfirm={handleConfirm}
+                            onCancel={hideDatePicker}
+                        />
+                    </View>            
                     <TextInput
                         label="Correo electrónico"
                         value={correo}

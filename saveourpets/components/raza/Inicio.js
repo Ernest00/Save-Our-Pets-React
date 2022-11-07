@@ -2,7 +2,6 @@ import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 import colores from '../../src/utils/colores';
 import Raza from './Raza';
-import { Button } from 'react-native-paper';
 import Ionicons from '@expo/vector-icons/MaterialCommunityIcons';
 
 const Inicio = ({ navigation }) => (
