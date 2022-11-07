@@ -3,10 +3,21 @@ import { StyleSheet, View } from 'react-native';
 import colores from '../../src/utils/colores';
 import Formulario from './Formulario';
 
-const Crear = ({ navigation }) => {
+const Crear = ({ navigation, route }) => {
     return (
         <View style={styles.contenedor}>
-            <Formulario titulo="Agregar nueva raza" textoBoton="Guardar" icono="content-save" navigation={navigation} />
+            <Formulario 
+                titulo="Agregar nueva raza" 
+                textoBoton="Guardar" 
+                icono="content-save" 
+                navigation={navigation}
+                datos={{
+                    id_raza: '',
+                    nombre: '',
+                    id_especie: ''
+                }}
+                accion={1}
+            />
         </View>
     );
 }
