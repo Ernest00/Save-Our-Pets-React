@@ -5,11 +5,17 @@ import colores from '../src/utils/colores';
 import logo from '../assets/img/logo.png';
 import firebase from '../src/utils/firebase';
 import {validateEmail} from '../src/utils/validations';
+import { passHook } from '../src/utils/passHook';
 
 export default function Login(props){
+    
     const {changeForm} = props;
 const [formData, setFormData] = useState(defaultValue());
 const [formError, setFormError] = useState({});
+const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    passHook();
+const [password, setPassword] = useState('');
+
 const login = () => {
 let errors = {};
 if (!formData.email || !formData.password) {
@@ -50,13 +56,13 @@ setFormData({...formData, [type]: e.nativeEvent.text});
                     />
                     <TextInput
                         label="Contraseña"
-                        secureTextEntry
+                        secureTextEntry={passwordVisibility}
                         onChange={(e) => onChange(e,'password')}
                         selectionColor={colores.azul}
                         underlineColor={colores.azul}
                         activeUnderlineColor={colores.rojo}
                         style={styles.input}
-                        right={<TextInput.Icon name="eye" />}
+                        right={<TextInput.Icon name="eye" onPress={handlePasswordVisibility}/>}
                     />
                     <Button icon="arrow-right-bold" mode="contained" onPress={login} style={styles.marginTop} color={colores.rojo} >
                         Acceder

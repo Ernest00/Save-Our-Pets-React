@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Button, View, Pressable } from 'react-native';
-import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, TouchableOpacity, Text, SafeAreaView } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerItem, TouchableOpacity, Text, SafeAreaView } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Razas from './raza/Inicio';
 import Login from './Login';
@@ -16,9 +16,19 @@ import firebase from '../src/utils/firebase';
 const Navegacion = () => {
     const Drawer = createDrawerNavigator();
 
+    function CustomDrawerContent(props) {
+        return (
+          <DrawerContentScrollView {...props}>
+            <DrawerItemList {...props} />
+            <DrawerItem label="Cerrar Sesión" onPress={() => firebase.auth().signOut()} />
+          </DrawerContentScrollView>
+        );
+      }
+
     return (
         <NavigationContainer>
-            <Drawer.Navigator initialRouteName="perfil">
+            <Drawer.Navigator initialRouteName="perfil" useLegacyImplementation
+      drawerContent={(props) => <CustomDrawerContent {...props} />}>
                 <Drawer.Screen 
                     name="perfil" 
                     component={Perfil} 

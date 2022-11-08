@@ -5,11 +5,15 @@ import colores from '../src/utils/colores';
 import logo from '../assets/img/logo.png';
 import firebase from '../src/utils/firebase';
 import {validateEmail} from '../src/utils/validations';
+import { passHook, passHook2 } from '../src/utils/passHook';
 
 export default function Register(props){
 const {changeForm} = props;
 const [formData, setFormData] = useState(defaultValue());
 const [formError, setFormError] = useState({});
+const { passwordVisibility, rightIcon, handlePasswordVisibility } = passHook();
+const { passwordVisibility2, rightIcon2, handlePasswordVisibility2 } = passHook2();
+
 const register = () => {
     let errors = {};
     if (!formData.email || !formData.password || !formData.repeatPassword
@@ -64,17 +68,17 @@ const register = () => {
                     />
                     <TextInput
                         label="Contraseña"
-                        secureTextEntry
+                        secureTextEntry={passwordVisibility}
                         onChange={(e) => setFormData({...formData, password: e.nativeEvent.text})}
                         selectionColor={colores.azul}
                         underlineColor={colores.azul}
                         activeUnderlineColor={colores.rojo}
                         style={[styles.input, formError.password && styles.error]}
-                        right={<TextInput.Icon name="eye" />}
+                         right={<TextInput.Icon name="eye" onPress={handlePasswordVisibility}/>}
                     />
                     <TextInput
                         label="Repetir Contraseña"
-                        secureTextEntry
+                       secureTextEntry={passwordVisibility2}
                         onChange={(e) =>
                             setFormData({...formData, repeatPassword: e.nativeEvent.text})
                             }
@@ -82,7 +86,7 @@ const register = () => {
                         underlineColor={colores.azul}
                         activeUnderlineColor={colores.rojo}
                         style={[styles.input , formError.repeatPassword && styles.error]}
-                        right={<TextInput.Icon name="eye" />}
+                        right={<TextInput.Icon name="eye" onPress={handlePasswordVisibility2}/>}
                     />
                     <Button icon="arrow-right-bold" mode="contained" onPress={register} style={styles.marginTop} color={colores.rojo} >
                         Acceder
