@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Button, View } from 'react-native';
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { Button, View, Pressable } from 'react-native';
+import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, TouchableOpacity, Text, SafeAreaView } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Razas from './raza/Inicio';
 import Login from './Login';
@@ -11,21 +11,14 @@ import EliminarRaza from './raza/Eliminar';
 import EditarPerfil from './usuario/Editar';
 import Perfil from './usuario/Perfil';
 import SolicitudAdopcion from './adopcion/Inicio';
+import firebase from '../src/utils/firebase';
 
 const Navegacion = () => {
     const Drawer = createDrawerNavigator();
 
     return (
         <NavigationContainer>
-            <Drawer.Navigator initialRouteName="login">
-                <Drawer.Screen 
-                    name="login" 
-                    component={Login}
-                    options={{
-                        drawerItemStyle: { height: 0 },
-                        title: 'Iniciar sesión',
-                    }} 
-                />
+            <Drawer.Navigator initialRouteName="perfil">
                 <Drawer.Screen 
                     name="perfil" 
                     component={Perfil} 
@@ -86,8 +79,11 @@ const Navegacion = () => {
                         title: 'Eliminar raza',
                         drawerItemStyle: { height: 0 },
                     }} 
-                />
+                />              
+
+                
             </Drawer.Navigator>
+
         </NavigationContainer>
     );
 };

@@ -19,10 +19,11 @@ setUser(response);
 if (user === undefined) return null;
 return (
 <>
-<StatusBar barStyle="light-content" />
-<SafeAreaView style={styles.contenedor}>
-{user ? <Usuarios user={user} /> : <Auth />}
-</SafeAreaView>
+<PaperProvider>
+<StatusBar />
+{user ? <Navegacion /> : <SafeAreaView style={styles.contenedor}><Auth /></SafeAreaView>}
+
+</PaperProvider>
 </>
 );
 }
