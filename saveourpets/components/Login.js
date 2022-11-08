@@ -3,10 +3,42 @@ import {Text, StyleSheet, View, Image} from 'react-native';
 import { TextInput, Button } from 'react-native-paper';
 import colores from '../src/utils/colores';
 import logo from '../assets/img/logo.png';
+import firebase from '../src/utils/firebase';
+import {validateEmail} from '../src/utils/validations';
+import { passHook } from '../src/utils/passHook';
 
-const Login = () => {
-    const [usuario, setUsuario] = useState('');
-    const [password, setPassword] = useState('');
+export default function Login(props){
+    
+    const {changeForm} = props;
+const [formData, setFormData] = useState(defaultValue());
+const [formError, setFormError] = useState({});
+const { passwordVisibility, rightIcon, handlePasswordVisibility } =
+    passHook();
+const [password, setPassword] = useState('');
+
+const login = () => {
+let errors = {};
+if (!formData.email || !formData.password) {
+if (!formData.email) errors.email = true;
+if (!formData.password) errors.password = true;
+} else if (!validateEmail(formData.email)) {
+errors.email = true;
+} else {
+firebase
+.auth()
+.signInWithEmailAndPassword(formData.email, formData.password)
+.catch(() => {
+setFormError({
+email: true,
+password: true,
+});
+});
+}
+setFormError(errors);
+};
+const onChange = (e, type) => {
+setFormData({...formData, [type]: e.nativeEvent.text});
+};
     return (
         <View style={styles.contenedor}>
             <View style={styles.contenido}>
@@ -15,9 +47,8 @@ const Login = () => {
                 <Text style={styles.texto}>Iniciar sesión</Text>
                 <View style={styles.formulario}>
                     <TextInput
-                        label="Usuario"
-                        value={usuario}
-                        onChangeText={usuario => setUsuario(usuario)}
+                        label="Usuario" 
+                        onChange={(e) => onChange(e, 'email')}
                         selectionColor={colores.azul}
                         underlineColor={colores.azul}
                         activeUnderlineColor={colores.rojo}
@@ -25,23 +56,33 @@ const Login = () => {
                     />
                     <TextInput
                         label="Contraseña"
-                        secureTextEntry
-                        value={password}
-                        onChangeText={password => setPassword(password)}
+                        secureTextEntry={passwordVisibility}
+                        onChange={(e) => onChange(e,'password')}
                         selectionColor={colores.azul}
                         underlineColor={colores.azul}
                         activeUnderlineColor={colores.rojo}
                         style={styles.input}
-                        right={<TextInput.Icon name="eye" />}
+                        right={<TextInput.Icon name="eye" onPress={handlePasswordVisibility}/>}
                     />
-                    <Button icon="arrow-right-bold" mode="contained" onPress={() => console.log('Pressed')} style={styles.marginTop} color={colores.rojo} >
+                    <Button icon="arrow-right-bold" mode="contained" onPress={login} style={styles.marginTop} color={colores.rojo} >
                         Acceder
+                    </Button>
+                    
+                    <Button icon="arrow-right-bold" mode="contained" onPress={changeForm} style={styles.marginTop} color={colores.rojo} >
+                        Registrarse
                     </Button>
                 </View>
             </View>
         </View>
     );
 }
+
+function defaultValue() {
+    return {
+    email: '',
+    password: '',
+    };
+    }
 
 const styles = StyleSheet.create({
     contenedor: {
@@ -77,7 +118,8 @@ const styles = StyleSheet.create({
     },
     formulario: {
         width: 330,
-    }
+    },
+    error: {
+        borderColor: '#940c0c',
+        }
 });
-
-export default Login;
