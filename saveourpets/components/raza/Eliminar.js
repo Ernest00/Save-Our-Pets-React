@@ -11,7 +11,7 @@ const Eliminar = ({ navigation, route }) => {
     const [loading, setLoading] = useState(true);
 
     const obtenerRaza = (id) => {
-        fetch(`http://localhost:8000/api/razas/${id}`, {
+        fetch(`https://api-save-our-pets.mktvirtual.net/api/razas/${id}`, {
             headers: {
                 'Content-Type' : 'application/json',
             },
@@ -28,7 +28,7 @@ const Eliminar = ({ navigation, route }) => {
     }
 
     const eliminarRaza = (id) => {
-        fetch(`http://localhost:8000/api/razas/${id}`, {
+        fetch(`https://api-save-our-pets.mktvirtual.net/api/razas/${id}`, {
             method: 'DELETE',
         })
         .then(response => response.json()) 
@@ -72,8 +72,8 @@ const Eliminar = ({ navigation, route }) => {
                 <Text style={styles.titulo}>Eliminar raza</Text>
             </View>
             <Card>
-                <Card.Title title={raza.nombre} subtitle="Card Subtitle" left={LeftContent} />
-                <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+                <Card.Title title={raza.nombre} subtitle={raza.especie} left={LeftContent} />
+                <Card.Cover source={{ uri: raza.imagen == '' ? 'https://api-save-our-pets.mktvirtual.net/storage/archivos/noimagen.png' : raza.imagen }} />
                 <Card.Actions>
                     <Button
                         icon="delete"

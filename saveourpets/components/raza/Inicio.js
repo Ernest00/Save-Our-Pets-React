@@ -9,7 +9,7 @@ const Inicio = ({ navigation }) => {
     const [loading, setLoading] = useState(true);
 
     const getRazas = () => {
-        fetch('http://localhost:8000/api/razas', {
+        fetch('https://api-save-our-pets.mktvirtual.net/api/razas', {
             headers: {
                 'Content-Type' : 'application/json',
             },

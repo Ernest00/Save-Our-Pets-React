@@ -2,13 +2,14 @@ import React from 'react';
 import { StyleSheet, Alert} from 'react-native';
 import { Avatar, Button, Card } from 'react-native-paper';
 import colores from '../../src/utils/colores';
+import noImagen from '../../assets/img/noimagen.png';
 
 const LeftContent = props => <Avatar.Icon {...props} style={styles.icono} icon="dog" color={colores.blanco}  />
 
 const Raza = ({ navegacion, datos }) => (
     <Card style={styles.tarjeta}>
         <Card.Title title={datos.nombre} subtitle={datos.especie} left={LeftContent} />
-        <Card.Cover source={{ uri: 'https://picsum.photos/700' }} />
+        <Card.Cover source={{ uri: datos.imagen == '' ? 'https://api-save-our-pets.mktvirtual.net/storage/archivos/noimagen.png' : datos.imagen }} />
         <Card.Actions>
             <Button 
                 color={colores.azul} 
