@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Alert, View, ActivityIndicator, Text } from 'react-native';
-import { Avatar, Button, Card, Paragraph } from 'react-native-paper';
+import { Avatar, Button, Card } from 'react-native-paper';
 import colores from '../../src/utils/colores';
 import Ionicons from '@expo/vector-icons/AntDesign';
 

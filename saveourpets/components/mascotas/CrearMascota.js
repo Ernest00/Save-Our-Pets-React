@@ -1,20 +1,26 @@
-import React, {useState} from 'react';
+import React from 'react';
 import { StyleSheet, View } from 'react-native';
 import colores from '../../src/utils/colores';
-import FormularioVacuna from './FormularioVacuna';
+import FormularioMascota from './FormularioMascota';
 
-const CrearVacuna = ({ navigation }) => {
+const CrearMascota = ({ navigation }) => {
     return (
         <View style={styles.contenedor}>
-            <FormularioVacuna 
-                titulo="Agregar nueva vacuna" 
+            <FormularioMascota 
+                titulo="Agregar nueva mascota" 
                 textoBoton="Guardar" 
                 icono="content-save" 
                 navigation={navigation}
                 datos={{
-                    id_vacuna: '',
-                    vacuna: '',
-                    descripcion: ''
+                    id_mascota: '',
+                    nombre_mascota: '',
+                    id_especie: '',
+                    id_raza: '',
+                    color_pelo: '',
+                    fecha_nacimiento: '',
+                    peso: '',
+                    esterilizado: '',
+                    id_estado: ''
                 }}
                 accion={1}
             />
@@ -33,4 +39,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default CrearVacuna;
+export default CrearMascota;

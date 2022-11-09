@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import colores from '../../src/utils/colores';
-import TarjetaVacuna from './TarjetaVacuna';
+import TarjetaMascota from './TarjetaMascota';
 import Ionicons from '@expo/vector-icons/MaterialCommunityIcons';
 
-const Vacunas = ({ navigation }) => {
-    const [vacunas, setVacunas] = useState([]);
+const Mascotas = ({ navigation }) => {
+    const [mascotas, setMascotas] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const getVacunas = () => {
-        fetch('https://api-save-our-pets.mktvirtual.net/api/vacunas', {
+    const getMascotas = () => {
+        fetch('https://api-save-our-pets.mktvirtual.net/api/mascotas', {
             headers: {
                 'content-type' : 'application/json',
             },
@@ -17,7 +17,7 @@ const Vacunas = ({ navigation }) => {
         })
         .then(response => response.json()) 
         .then(json => {
-            setVacunas(json);
+            setMascotas(json);
             setLoading(false);
         })
         .catch(err => {
@@ -26,7 +26,7 @@ const Vacunas = ({ navigation }) => {
     }
 
     useEffect(() => {
-        navigation.addListener('focus', getVacunas);
+        navigation.addListener('focus', getMascotas);
     }, [navigation]);
 
     if (loading) {
@@ -40,17 +40,17 @@ const Vacunas = ({ navigation }) => {
     return (
         <ScrollView>
             <View style={styles.contenedor}>
-                <Text style={styles.titulo}>Vacunas</Text>
-                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('crearVacuna') }>
+                <Text style={styles.titulo}>Mascotas</Text>
+                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('crearMascota') }>
                     <Ionicons name={"plus"} size={40} color={colores.blanco} />
                 </TouchableOpacity>
                 {
-                    vacunas.map((datos) => {
+                    mascotas.map((datos) => {
                         return (
-                            <TarjetaVacuna 
+                            <TarjetaMascota
                                 datos={datos}
                                 navegacion={navigation} 
-                                key={datos.id_vacuna} 
+                                key={datos.id_mascota} 
                             />
                         );
                     })
@@ -92,4 +92,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Vacunas;
+export default Mascotas;

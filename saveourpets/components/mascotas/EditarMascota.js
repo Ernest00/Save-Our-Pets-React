@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import colores from '../../src/utils/colores';
-import FormularioVacuna from './FormularioVacuna';
+import FormularioMascota from './FormularioMascota';
 
-const EditarVacuna = ({ navigation, route }) => {
-    const [vacuna, setVacuna] = useState({});
+const EditarMascota = ({ navigation, route }) => {
+    const [mascota, setMascota] = useState({});
     const [loading, setLoading] = useState(true);
 
-    const obtenerVacuna = (id) => {
-        fetch(`https://api-save-our-pets.mktvirtual.net/api/vacunas/${id}`, {
+    const obtenerMascota = (id) => {
+        fetch(`https://api-save-our-pets.mktvirtual.net/api/mascotas/${id}`, {
             headers: {
                 'content-type' : 'application/json',
             },
@@ -16,7 +16,7 @@ const EditarVacuna = ({ navigation, route }) => {
         })
         .then(response => response.json()) 
         .then(json => {
-            setVacuna(json);
+            setMascota(json);
             setLoading(false);
         })
         .catch(err => {
@@ -25,7 +25,7 @@ const EditarVacuna = ({ navigation, route }) => {
     }
 
     useEffect(() => {
-        obtenerVacuna(route.params.id);
+        obtenerMascota(route.params.id);
     }, [route.params.id]);
 
     if (loading) {
@@ -38,12 +38,12 @@ const EditarVacuna = ({ navigation, route }) => {
 
     return (
         <View style={styles.contenedor}>
-            <FormularioVacuna
-                titulo="Editar vacuna" 
+            <FormularioMascota 
+                titulo="Editar información de mascota" 
                 textoBoton="Actualizar" 
                 icono="pencil" 
                 navigation={navigation} 
-                datos={vacuna} 
+                datos={mascota} 
                 accion={2}
             />
         </View>
@@ -67,4 +67,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default EditarVacuna;
+export default EditarMascota;

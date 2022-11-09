@@ -12,6 +12,13 @@ import EditarPerfil from './usuario/Editar';
 import Perfil from './usuario/Perfil';
 import SolicitudAdopcion from './adopcion/Inicio';
 import firebase from '../src/utils/firebase';
+import Vacunas from './vacunas/Vacunas';
+import CrearVacuna from './vacunas/CrearVacuna';
+import EditarVacuna from './vacunas/EditarVacuna';
+import EliminarVacuna from './vacunas/EliminarVacuna';
+import Mascotas from './mascotas/Mascotas';
+import CrearMascota from './mascotas/CrearMascota';
+import EditarMascota from './mascotas/EditarMascota';
 
 const Navegacion = () => {
     const Drawer = createDrawerNavigator();
@@ -37,18 +44,31 @@ const Navegacion = () => {
                     }} 
                 />
                 <Drawer.Screen 
-                    name="editarPerfil" 
-                    component={EditarPerfil} 
-                    options={{
-                        drawerItemStyle: { height: 0 },
-                        title: 'Editar mi perfil',
-                    }} 
-                /> 
-                <Drawer.Screen 
                     name="solicitudAdopcion" 
                     component={SolicitudAdopcion} 
                     options={{
                         title: 'Solicitud adopción',
+                    }} 
+                /> 
+                <Drawer.Screen 
+                    name="razas" 
+                    component={Razas} 
+                    options={{
+                        title: 'Razas',
+                    }} 
+                />
+                <Drawer.Screen 
+                    name="vacunas" 
+                    component={Vacunas} 
+                    options={{
+                        title: 'Vacunas',
+                    }} 
+                /> 
+                <Drawer.Screen 
+                    name="mascotas" 
+                    component={Mascotas} 
+                    options={{
+                        title: 'Mascotas',
                     }} 
                 /> 
                 <Drawer.Screen 
@@ -59,13 +79,6 @@ const Navegacion = () => {
                         drawerItemStyle: { height: 0 },
                     }} 
                 /> 
-                <Drawer.Screen 
-                    name="razas" 
-                    component={Razas} 
-                    options={{
-                        title: 'Razas',
-                    }} 
-                />
                 <Drawer.Screen 
                     name="crearRaza" 
                     component={CrearRaza} 
@@ -90,8 +103,54 @@ const Navegacion = () => {
                         drawerItemStyle: { height: 0 },
                     }} 
                 />              
-
-                
+                <Drawer.Screen 
+                    name="editarPerfil" 
+                    component={EditarPerfil} 
+                    options={{
+                        drawerItemStyle: { height: 0 },
+                        title: 'Editar mi perfil',
+                    }} 
+                /> 
+                <Drawer.Screen 
+                    name="crearVacuna" 
+                    component={CrearVacuna} 
+                    options={{
+                        title: 'Registrar vacuna',
+                        drawerItemStyle: { height: 0 },
+                    }} 
+                /> 
+                <Drawer.Screen 
+                    name="editarVacuna" 
+                    component={EditarVacuna} 
+                    options={{
+                        title: 'Editar vacuna',
+                        drawerItemStyle: { height: 0 },
+                    }} 
+                /> 
+                <Drawer.Screen 
+                    name="eliminarVacuna" 
+                    component={EliminarVacuna} 
+                    options={{
+                        title: 'Eliminar vacuna',
+                        drawerItemStyle: { height: 0 },
+                    }} 
+                /> 
+                <Drawer.Screen 
+                    name="crearMascota" 
+                    component={CrearMascota} 
+                    options={{
+                        title: 'Registrar mascota',
+                        drawerItemStyle: { height: 0 },
+                    }} 
+                /> 
+                <Drawer.Screen 
+                    name="editarMascota" 
+                    component={EditarMascota} 
+                    options={{
+                        title: 'Actualizar información mascota',
+                        drawerItemStyle: { height: 0 },
+                    }} 
+                /> 
             </Drawer.Navigator>
 
         </NavigationContainer>
