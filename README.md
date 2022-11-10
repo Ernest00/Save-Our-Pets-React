@@ -22,9 +22,11 @@ https://trello.com/b/SiiKk37W/tablero-kanban-sop
 
 https://drive.google.com/drive/folders/1ySkq1ntdTAh6eoN-L_TYJm686BLZpQdB
 
-## Link del Video de funcionamiento de App
+## Link manual de Usuario
+https://github.com/Ernest00/Save-Our-Pets-React/blob/main/Manual%20de%20usuario.pdf
 
-https://drive.google.com/file/d/13PYKKo3BkTofCMLbd2cbgszDo3_WbaZB/view?usp=sharing
+## Link manual técnico
+https://github.com/Ernest00/Save-Our-Pets-React/blob/main/Manual_Tecnico_DPS.pdf
 
 ## Licencia Creative Commons
 La licencia utilizada es: **CC0 1.0 Universal (CC0 1.0) Public Domain Dedication.**
