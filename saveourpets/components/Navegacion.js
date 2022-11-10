@@ -48,13 +48,6 @@ const Navegacion = () => {
                     }} 
                 />
                 <Drawer.Screen 
-                    name="perfil" 
-                    component={Perfil} 
-                    options={{
-                        title: 'Mi perfil',
-                    }} 
-                />
-                <Drawer.Screen 
                     name="solicitudAdopcion" 
                     component={SolicitudAdopcion} 
                     options={{
