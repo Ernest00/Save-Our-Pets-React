@@ -1,9 +1,7 @@
 import * as React from 'react';
-import { Button, View, Pressable } from 'react-native';
-import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerItem, TouchableOpacity, Text, SafeAreaView } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerItemList, DrawerContentScrollView, DrawerItem } from '@react-navigation/drawer';
 import { NavigationContainer } from '@react-navigation/native';
 import Razas from './raza/Inicio';
-import Login from './Login';
 import formularioAdopcion from './adopcion/Formulario';
 import CrearRaza from './raza/Crear';
 import EditarRaza from './raza/Editar';
@@ -24,6 +22,7 @@ import Mascotas from './mascotas/Mascotas';
 import CrearMascota from './mascotas/CrearMascota';
 import EditarMascota from './mascotas/EditarMascota';
 import EliminarMascota from './mascotas/EliminarMascota';
+import Inicio from './Inicio';
 
 const Navegacion = () => {
     const Drawer = createDrawerNavigator();
@@ -39,8 +38,15 @@ const Navegacion = () => {
 
     return (
         <NavigationContainer>
-            <Drawer.Navigator initialRouteName="perfil" useLegacyImplementation
+            <Drawer.Navigator initialRouteName="inicio" useLegacyImplementation
       drawerContent={(props) => <CustomDrawerContent {...props} />}>
+                <Drawer.Screen 
+                    name="inicio" 
+                    component={Inicio} 
+                    options={{
+                        title: 'Inicio',
+                    }} 
+                />
                 <Drawer.Screen 
                     name="perfil" 
                     component={Perfil} 
