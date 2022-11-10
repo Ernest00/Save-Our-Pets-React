@@ -19,6 +19,7 @@ import EliminarVacuna from './vacunas/EliminarVacuna';
 import Mascotas from './mascotas/Mascotas';
 import CrearMascota from './mascotas/CrearMascota';
 import EditarMascota from './mascotas/EditarMascota';
+import EliminarMascota from './mascotas/EliminarMascota';
 
 const Navegacion = () => {
     const Drawer = createDrawerNavigator();
@@ -140,6 +141,14 @@ const Navegacion = () => {
                     component={CrearMascota} 
                     options={{
                         title: 'Registrar mascota',
+                        drawerItemStyle: { height: 0 },
+                    }} 
+                /> 
+                <Drawer.Screen 
+                    name="eliminarMascota" 
+                    component={EliminarMascota} 
+                    options={{
+                        title: 'Eliminar mascota',
                         drawerItemStyle: { height: 0 },
                     }} 
                 /> 
