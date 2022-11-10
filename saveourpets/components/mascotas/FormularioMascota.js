@@ -53,6 +53,20 @@ const FormularioMascota = ({ titulo, textoBoton, icono, navigation, datos, accio
            
         }
     }
+
+    const validarCampos = () => {
+        if (
+            state.nombre_mascota == '' ||
+            state.id_especie == '' ||
+            state.id_raza == '' ||
+            state.color_pelo == '' ||
+            state.esterilizado == '' ||
+            state.id_estado == ''
+        ) {
+            return false;
+        }
+        return true;
+    }
     
     const handleConfirm = (date) => {
         let fecha = `${date.getFullYear()}-${date.getMonth()+1}-${date.getDate()}`;
@@ -150,79 +164,99 @@ const FormularioMascota = ({ titulo, textoBoton, icono, navigation, datos, accio
     }
 
     const crearMascota = () => {
-        let formData = new FormData();
-        formData.append('nombre_mascota', state.nombre_mascota);
-        formData.append('id_especie', state.id_especie);
-        formData.append('id_raza', state.id_raza);
-        formData.append('color_pelo', state.color_pelo);
-        formData.append('fecha_nacimiento', state.fecha_nacimiento);
-        formData.append('peso', state.peso);
-        formData.append('esterilizado', state.esterilizado);
-        formData.append('id_estado', state.id_estado);
-        setLoading(true);
+        if (validarCampos()) {
+            let formData = new FormData();
+            formData.append('nombre_mascota', state.nombre_mascota);
+            formData.append('id_especie', state.id_especie);
+            formData.append('id_raza', state.id_raza);
+            formData.append('color_pelo', state.color_pelo);
+            formData.append('fecha_nacimiento', state.fecha_nacimiento);
+            formData.append('peso', state.peso);
+            formData.append('esterilizado', state.esterilizado);
+            formData.append('id_estado', state.id_estado);
+            setLoading(true);
 
-        fetch('https://api-save-our-pets.mktvirtual.net/api/mascotas/crear', {
-            headers: {
-                'content-type': 'multipart/form-data'
-            },
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json()) 
-        .then(json => {
-            setLoading(false);
-            limpiarCampos();
+            fetch('https://api-save-our-pets.mktvirtual.net/api/mascotas/crear', {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                },
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) 
+            .then(json => {
+                setLoading(false);
+                limpiarCampos();
+                Alert.alert(
+                    'Información', 
+                    json.mensaje,
+                    [
+                    { text: 'OK', onPress: () => { navigation.navigate('mascotas') }},
+                    ],
+                    { cancelable: false }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                setLoading(false);
+            });
+        } else  {
             Alert.alert(
-                'Información', 
-                json.mensaje,
+                'Error', 
+                'Complete toda la información.',
                 [
-                  { text: 'OK', onPress: () => { navigation.navigate('mascotas') }},
-                ],
-                { cancelable: false }
+                    { text: 'OK' },
+                ]
             );
-        })
-        .catch(err => {
-            console.log(err);
-            setLoading(false);
-        });
+        }
     };
 
     const actualizarMascota = () => {
-        let formData = new FormData();
-        formData.append('nombre_mascota', state.nombre_mascota);
-        formData.append('id_especie', state.id_especie);
-        formData.append('id_raza', state.id_raza);
-        formData.append('color_pelo', state.color_pelo);
-        formData.append('fecha_nacimiento', state.fecha_nacimiento);
-        formData.append('peso', state.peso);
-        formData.append('esterilizado', state.esterilizado);
-        formData.append('id_estado', state.id_estado);
-        setLoading(true);
+        if (validarCampos()) {
+            let formData = new FormData();
+            formData.append('nombre_mascota', state.nombre_mascota);
+            formData.append('id_especie', state.id_especie);
+            formData.append('id_raza', state.id_raza);
+            formData.append('color_pelo', state.color_pelo);
+            formData.append('fecha_nacimiento', state.fecha_nacimiento);
+            formData.append('peso', state.peso);
+            formData.append('esterilizado', state.esterilizado);
+            formData.append('id_estado', state.id_estado);
+            setLoading(true);
 
-        fetch(`https://api-save-our-pets.mktvirtual.net/api/mascotas/actualizar/${state.id_mascota}`, {
-            headers: {
-                'content-type' : 'multipart/form-data'
-            },
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json()) 
-        .then(json => {
-            setLoading(false);
-            limpiarCampos();
+            fetch(`https://api-save-our-pets.mktvirtual.net/api/mascotas/actualizar/${state.id_mascota}`, {
+                headers: {
+                    'content-type' : 'multipart/form-data'
+                },
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) 
+            .then(json => {
+                setLoading(false);
+                limpiarCampos();
+                Alert.alert(
+                    'Información', 
+                    json.mensaje,
+                    [
+                    { text: 'OK', onPress: () => { navigation.navigate('mascotas') }},
+                    ],
+                    { cancelable: false }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                setLoading(false);
+            });
+        } else  {
             Alert.alert(
-                'Información', 
-                json.mensaje,
+                'Error', 
+                'Complete toda la información.',
                 [
-                  { text: 'OK', onPress: () => { navigation.navigate('mascotas') }},
-                ],
-                { cancelable: false }
+                    { text: 'OK' },
+                ]
             );
-        })
-        .catch(err => {
-            console.log(err);
-            setLoading(false);
-        });
+        }
     }
 
     if (loading) {

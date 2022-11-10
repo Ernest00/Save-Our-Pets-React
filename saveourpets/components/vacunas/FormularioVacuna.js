@@ -20,6 +20,13 @@ const FormularioVacuna = ({ titulo, textoBoton, icono, navigation, datos, accion
         });
     }
 
+    const validarCampos = () => {
+        if (state.vacuna == '' || state.descripcion == '') {
+            return false;
+        }
+        return true;
+    } 
+
     useEffect(() => {
         setState({
             id_vacuna: datos.id_vacuna,
@@ -33,70 +40,90 @@ const FormularioVacuna = ({ titulo, textoBoton, icono, navigation, datos, accion
     }
 
     const crearVacuna = () => {
-        let formData = new FormData();
-        
-        formData.append('vacuna', state.vacuna);
-        formData.append('descripcion', state.descripcion);
-        setLoading(true);
+        if (validarCampos()) {
+            let formData = new FormData();
+            
+            formData.append('vacuna', state.vacuna);
+            formData.append('descripcion', state.descripcion);
+            setLoading(true);
 
-        fetch('https://api-save-our-pets.mktvirtual.net/api/vacunas/crear', {
-            headers: {
-                'content-type': 'multipart/form-data'
-            },
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json()) 
-        .then(json => {
-            setLoading(false);
-            limpiarCampos();
+            fetch('https://api-save-our-pets.mktvirtual.net/api/vacunas/crear', {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                },
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) 
+            .then(json => {
+                setLoading(false);
+                limpiarCampos();
+                Alert.alert(
+                    'Información', 
+                    json.mensaje,
+                    [
+                    { text: 'OK', onPress: () => { navigation.navigate('vacunas') }},
+                    ],
+                    { cancelable: false }
+                );
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(err);
+            });
+        } else {
             Alert.alert(
-                'Información', 
-                json.mensaje,
+                'Error', 
+                'Complete toda la información.',
                 [
-                  { text: 'OK', onPress: () => { navigation.navigate('vacunas') }},
-                ],
-                { cancelable: false }
+                    { text: 'OK' },
+                ]
             );
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(err);
-        });
+        }
     }
 
     const actualizarVacuna = () => {
-        let formData = new FormData();
+        if (validarCampos()) {
+            let formData = new FormData();
 
-        formData.append('id_vacuna', state.id_vacuna)
-        formData.append('vacuna', state.vacuna);
-        formData.append('descripcion', state.descripcion);
-        setLoading(true);
+            formData.append('id_vacuna', state.id_vacuna)
+            formData.append('vacuna', state.vacuna);
+            formData.append('descripcion', state.descripcion);
+            setLoading(true);
 
-        fetch(`https://api-save-our-pets.mktvirtual.net/api/vacunas/actualizar/${state.id_vacuna}`, {
-            headers: {
-                'content-type' : 'multipart/form-data'
-            },
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json()) 
-        .then(json => {
-            setLoading(false);
-            limpiarCampos();
+            fetch(`https://api-save-our-pets.mktvirtual.net/api/vacunas/actualizar/${state.id_vacuna}`, {
+                headers: {
+                    'content-type' : 'multipart/form-data'
+                },
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) 
+            .then(json => {
+                setLoading(false);
+                limpiarCampos();
+                Alert.alert(
+                    'Información', 
+                    json.mensaje,
+                    [
+                    { text: 'OK', onPress: () => { navigation.navigate('vacunas') }},
+                    ],
+                    { cancelable: false }
+                );
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(err);
+            });
+        } else {
             Alert.alert(
-                'Información', 
-                json.mensaje,
+                'Error', 
+                'Complete toda la información.',
                 [
-                  { text: 'OK', onPress: () => { navigation.navigate('vacunas') }},
-                ],
-                { cancelable: false }
+                    { text: 'OK' },
+                ]
             );
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(err);
-        });
+        }
     }
 
     if (loading) {
