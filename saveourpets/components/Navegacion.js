@@ -23,6 +23,7 @@ import CrearMascota from './mascotas/CrearMascota';
 import EditarMascota from './mascotas/EditarMascota';
 import EliminarMascota from './mascotas/EliminarMascota';
 import Inicio from './Inicio';
+import ReporteVacuna from './mascotas/ReporteVacuna';
 
 const Navegacion = () => {
     const Drawer = createDrawerNavigator();
@@ -192,6 +193,14 @@ const Navegacion = () => {
                     component={EditarMascota} 
                     options={{
                         title: 'Actualizar información mascota',
+                        drawerItemStyle: { height: 0 },
+                    }} 
+                /> 
+                <Drawer.Screen 
+                    name="reporteVacuna" 
+                    component={ReporteVacuna} 
+                    options={{
+                        title: 'Reporte de vacunas',
                         drawerItemStyle: { height: 0 },
                     }} 
                 /> 

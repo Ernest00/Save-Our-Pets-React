@@ -34,6 +34,14 @@ const TarjetaMascota = ({ navegacion, datos }) => {
             <Card.Actions>
                 <Button 
                     color={colores.azul} 
+                    icon="information"
+                    onPress={() => navegacion.navigate('reporteVacuna', { id: datos.id_mascota })
+                    }
+                >
+                    Info
+                </Button>
+                <Button 
+                    color={colores.azul} 
                     icon="pencil"
                     onPress={() => navegacion.navigate('editarMascota', { id: datos.id_mascota })
                     }
