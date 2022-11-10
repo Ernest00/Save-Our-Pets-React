@@ -8,6 +8,10 @@ import formularioAdopcion from './adopcion/Formulario';
 import CrearRaza from './raza/Crear';
 import EditarRaza from './raza/Editar';
 import EliminarRaza from './raza/Eliminar';
+import Especies from './especie/Inicio';
+import CrearEspecie from './especie/Crear';
+import EditarEspecie from './especie/Editar';
+import EliminarEspecie from './especie/Eliminar';
 import EditarPerfil from './usuario/Editar';
 import Perfil from './usuario/Perfil';
 import SolicitudAdopcion from './adopcion/Inicio';
@@ -36,14 +40,7 @@ const Navegacion = () => {
                         title: 'Mi perfil',
                     }} 
                 />
-                <Drawer.Screen 
-                    name="editarPerfil" 
-                    component={EditarPerfil} 
-                    options={{
-                        drawerItemStyle: { height: 0 },
-                        title: 'Editar mi perfil',
-                    }} 
-                /> 
+                
                 <Drawer.Screen 
                     name="solicitudAdopcion" 
                     component={SolicitudAdopcion} 
@@ -51,6 +48,21 @@ const Navegacion = () => {
                         title: 'Solicitud adopción',
                     }} 
                 /> 
+
+                <Drawer.Screen 
+                    name="razas" 
+                    component={Razas} 
+                    options={{
+                        title: 'Razas',
+                    }} 
+                />
+                <Drawer.Screen 
+                    name="especies" 
+                    component={Especies} 
+                    options={{
+                        title: 'Especies',
+                    }} 
+                />
                 <Drawer.Screen 
                     name="formularioAdopcion" 
                     component={formularioAdopcion} 
@@ -59,13 +71,15 @@ const Navegacion = () => {
                         drawerItemStyle: { height: 0 },
                     }} 
                 /> 
+
                 <Drawer.Screen 
-                    name="razas" 
-                    component={Razas} 
+                    name="editarPerfil" 
+                    component={EditarPerfil} 
                     options={{
-                        title: 'Razas',
+                        drawerItemStyle: { height: 0 },
+                        title: 'Editar mi perfil',
                     }} 
-                />
+                /> 
                 <Drawer.Screen 
                     name="crearRaza" 
                     component={CrearRaza} 
@@ -87,6 +101,31 @@ const Navegacion = () => {
                     component={EliminarRaza} 
                     options={{
                         title: 'Eliminar raza',
+                        drawerItemStyle: { height: 0 },
+                    }} 
+                /> 
+
+                <Drawer.Screen 
+                    name="crearEspecie" 
+                    component={CrearEspecie} 
+                    options={{
+                        title: 'Agregar especie',
+                        drawerItemStyle: { height: 0 },
+                    }} 
+                /> 
+                <Drawer.Screen 
+                    name="editarEspecie" 
+                    component={EditarEspecie} 
+                    options={{
+                        title: 'Editar especie',
+                        drawerItemStyle: { height: 0 },
+                    }} 
+                /> 
+                <Drawer.Screen 
+                    name="eliminarEspecie" 
+                    component={EliminarEspecie} 
+                    options={{
+                        title: 'Eliminar especie',
                         drawerItemStyle: { height: 0 },
                     }} 
                 />              
