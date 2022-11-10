@@ -24,6 +24,7 @@ const Eliminar = ({ navigation, route }) => {
         })
         .catch(err => {
             console.log(err);
+            setLoading(false);
         });
     }
 
@@ -44,6 +45,7 @@ const Eliminar = ({ navigation, route }) => {
         })
         .catch(err => {
             console.log(err);
+            setLoading(false);
         });
     }
 

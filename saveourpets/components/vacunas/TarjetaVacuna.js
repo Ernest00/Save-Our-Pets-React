@@ -1,21 +1,22 @@
 import React from 'react';
 import { StyleSheet } from 'react-native';
-import { Avatar, Button, Card } from 'react-native-paper';
+import { Avatar, Button, Card, Paragraph, Title } from 'react-native-paper';
 import colores from '../../src/utils/colores';
 
-const LeftContent = props => <Avatar.Icon {...props} style={styles.icono} icon="dog" color={colores.blanco}  />
+const LeftContent = props => <Avatar.Icon {...props} style={styles.icono} icon="needle" color={colores.blanco}  />
 
-const Raza = ({ navegacion, datos }) => (
+const TarjetaVacuna = ({ navegacion, datos }) => (
     <Card style={styles.tarjeta}>
-        <Card.Title title={datos.nombre} subtitle={datos.especie} left={LeftContent} />
-        <Card.Cover source={{ uri: datos.imagen == '' ? 'https://api-save-our-pets.mktvirtual.net/storage/archivos/noimagen.png' : datos.imagen }} />
+        <Card.Title left={LeftContent} />
+        <Card.Content>
+            <Title>{datos.vacuna}</Title>
+            <Paragraph>{datos.descripcion}</Paragraph>
+        </Card.Content>
         <Card.Actions>
             <Button 
                 color={colores.azul} 
                 icon="pencil"
-                onPress={() => {
-                        navegacion.navigate('editarRaza', { id: datos.id_raza })
-                    }
+                onPress={() => navegacion.navigate('editarVacuna', { id: datos.id_vacuna })
                 }
             >
                 Editar
@@ -23,7 +24,7 @@ const Raza = ({ navegacion, datos }) => (
             <Button 
                 color={colores.rojo} 
                 icon="delete"
-                onPress={() => navegacion.navigate('eliminarRaza', { id: datos.id_raza })}
+                onPress={() => navegacion.navigate('eliminarVacuna', { id: datos.id_vacuna })}
             >
                 Eliminar
             </Button>
@@ -41,4 +42,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Raza;
+export default TarjetaVacuna;

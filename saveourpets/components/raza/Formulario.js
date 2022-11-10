@@ -55,6 +55,7 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
             setLoading(false);
         })
         .catch(err => {
+            setLoading(false);
             console.log(err);
         });
     }
@@ -110,6 +111,7 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
             );
         })
         .catch(err => {
+            setLoading(false);
             console.log(err);
         });
     };
@@ -152,6 +154,7 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
             );
         })
         .catch(err => {
+            setLoading(false);
             console.log(err);
         });
     }

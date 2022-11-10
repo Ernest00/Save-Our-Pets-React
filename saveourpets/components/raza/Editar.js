@@ -21,6 +21,7 @@ const Editar = ({ navigation, route }) => {
         })
         .catch(err => {
             console.log(err);
+            setLoading(false);
         });
     }
 

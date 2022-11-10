@@ -22,6 +22,7 @@ const Inicio = ({ navigation }) => {
         })
         .catch(err => {
             console.log(err);
+            setLoading(false);
         });
     }
 

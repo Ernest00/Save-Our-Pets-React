@@ -61,6 +61,7 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
         })
         .catch(err => {
             console.log(err);
+            setLoading(false);
         });
     };
 
@@ -93,6 +94,7 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
         })
         .catch(err => {
             console.log(err);
+            setLoading(false);
         });
     }
 

@@ -1,33 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, ScrollView, ActivityIndicator } from 'react-native';
 import colores from '../../src/utils/colores';
-import Raza from './Raza';
+import TarjetaMascota from './TarjetaMascota';
 import Ionicons from '@expo/vector-icons/MaterialCommunityIcons';
 
-const Inicio = ({ navigation }) => {
-    const [razas, setRazas] = useState([]);
+const Mascotas = ({ navigation }) => {
+    const [mascotas, setMascotas] = useState([]);
     const [loading, setLoading] = useState(true);
 
-    const getRazas = () => {
-        fetch('https://api-save-our-pets.mktvirtual.net/api/razas', {
+    const getMascotas = () => {
+        fetch('https://api-save-our-pets.mktvirtual.net/api/mascotas', {
             headers: {
-                'Content-Type' : 'application/json',
+                'content-type' : 'application/json',
             },
             method: 'GET',
         })
         .then(response => response.json()) 
         .then(json => {
-            setRazas(json);
+            setMascotas(json);
             setLoading(false);
         })
         .catch(err => {
             console.log(err);
-            setLoading(false);
         });
     }
 
     useEffect(() => {
-        navigation.addListener('focus', getRazas);
+        navigation.addListener('focus', getMascotas);
     }, [navigation]);
 
     if (loading) {
@@ -41,17 +40,17 @@ const Inicio = ({ navigation }) => {
     return (
         <ScrollView>
             <View style={styles.contenedor}>
-                <Text style={styles.titulo}>Razas</Text>
-                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('crearRaza') }>
+                <Text style={styles.titulo}>Mascotas</Text>
+                <TouchableOpacity style={styles.boton} onPress={() => navigation.navigate('crearMascota') }>
                     <Ionicons name={"plus"} size={40} color={colores.blanco} />
                 </TouchableOpacity>
                 {
-                    razas.map((datos) => {
+                    mascotas.map((datos) => {
                         return (
-                            <Raza 
+                            <TarjetaMascota
                                 datos={datos}
                                 navegacion={navigation} 
-                                key={datos.id_raza} 
+                                key={datos.id_mascota} 
                             />
                         );
                     })
@@ -93,4 +92,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Inicio;
+export default Mascotas;

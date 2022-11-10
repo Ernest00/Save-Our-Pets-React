@@ -1,32 +1,32 @@
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, View, ActivityIndicator } from 'react-native';
 import colores from '../../src/utils/colores';
-import Formulario from './Formulario';
+import FormularioMascota from './FormularioMascota';
 
-const Editar = ({ navigation, route }) => {
-    const [especie, setEspecie] = useState({});
+const EditarMascota = ({ navigation, route }) => {
+    const [mascota, setMascota] = useState({});
     const [loading, setLoading] = useState(true);
 
-    const obtenerEspecie = (id) => {
-        fetch(`https://api-save-our-pets.mktvirtual.net/api/especies/${id}`, {
+    const obtenerMascota = (id) => {
+        fetch(`https://api-save-our-pets.mktvirtual.net/api/mascotas/${id}`, {
             headers: {
-                'Content-Type' : 'application/json',
+                'content-type' : 'application/json',
             },
             method: 'GET',
         })
         .then(response => response.json()) 
         .then(json => {
-            setEspecie(json);
+            setMascota(json);
             setLoading(false);
         })
         .catch(err => {
-            console.log(err);
             setLoading(false);
+            console.log(err);
         });
     }
 
     useEffect(() => {
-        obtenerEspecie(route.params.id);
+        obtenerMascota(route.params.id);
     }, [route.params.id]);
 
     if (loading) {
@@ -39,12 +39,12 @@ const Editar = ({ navigation, route }) => {
 
     return (
         <View style={styles.contenedor}>
-            <Formulario 
-                titulo="Editar especie" 
+            <FormularioMascota 
+                titulo="Editar información de mascota" 
                 textoBoton="Actualizar" 
                 icono="pencil" 
                 navigation={navigation} 
-                datos={especie} 
+                datos={mascota} 
                 accion={2}
             />
         </View>
@@ -68,4 +68,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default Editar;
+export default EditarMascota;
