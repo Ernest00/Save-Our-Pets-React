@@ -1,17 +1,22 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Alert, ActivityIndicator, Image } from 'react-native';
+import { View, Text, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import colores from '../../src/utils/colores';
 import { TextInput, Button } from 'react-native-paper';
-import { Picker } from '@react-native-picker/picker';
 import Ionicons from '@expo/vector-icons/AntDesign';
-import * as ImagePicker from 'expo-image-picker';
 
 const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) => {
     const [state, setState] = useState({
         id_especie: '',
         nombre: ''
     });
-    const [loading, setLoading] = useState(true);
+    const [loading, setLoading] = useState(false);
+
+    const validarCampos = () => {
+        if (state.nombre == '') {
+            return false;
+        }
+        return true;
+    }
 
     const limpiarCampos = () => {
         setState({
@@ -21,7 +26,6 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
     }
 
     useEffect(() => {
-        setLoading(false);
         setState({
             id_especie: datos.id_especie,
             nombre: datos.nombre
@@ -33,69 +37,89 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
     }
 
     const crearEspecie = () => {
-        let formData = new FormData();
-        
-        formData.append('nombre', state.nombre);
-        formData.append('id_especie', state.especie);
-        setLoading(true);
+        if (validarCampos()) {
+            let formData = new FormData();
+            
+            formData.append('nombre', state.nombre);
+            formData.append('id_especie', state.especie);
+            setLoading(true);
 
-        fetch('https://api-save-our-pets.mktvirtual.net/api/especies/crear', {
-            headers: {
-                'content-type': 'multipart/form-data'
-            },
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json()) 
-        .then(json => {
-            setLoading(false);
-            limpiarCampos();
+            fetch('https://api-save-our-pets.mktvirtual.net/api/especies/crear', {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                },
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) 
+            .then(json => {
+                setLoading(false);
+                limpiarCampos();
+                Alert.alert(
+                    'Información', 
+                    json.mensaje,
+                    [
+                    { text: 'OK', onPress: () => { navigation.navigate('especies') }},
+                    ],
+                    { cancelable: false }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                setLoading(false);
+            });
+        } else  {
             Alert.alert(
-                'Información', 
-                json.mensaje,
+                'Error', 
+                'Ingrese el nombre de la especie.',
                 [
-                  { text: 'OK', onPress: () => { navigation.navigate('especies') }},
-                ],
-                { cancelable: false }
+                    { text: 'OK' },
+                ]
             );
-        })
-        .catch(err => {
-            console.log(err);
-            setLoading(false);
-        });
+        }
     };
 
     const actualizarEspecie = () => {
-        let formData = new FormData();
+        if (validarCampos()) {
+            let formData = new FormData();
 
-        formData.append('id_especie', state.id_especie)
-        formData.append('nombre', state.nombre);
-        setLoading(true);
+            formData.append('id_especie', state.id_especie)
+            formData.append('nombre', state.nombre);
+            setLoading(true);
 
-        fetch(`https://api-save-our-pets.mktvirtual.net/api/especies/actualizar/${state.id_especie}`, {
-            headers: {
-                'content-type' : 'multipart/form-data'
-            },
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json()) 
-        .then(json => {
-            setLoading(false);
-            limpiarCampos();
+            fetch(`https://api-save-our-pets.mktvirtual.net/api/especies/actualizar/${state.id_especie}`, {
+                headers: {
+                    'content-type' : 'multipart/form-data'
+                },
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) 
+            .then(json => {
+                setLoading(false);
+                limpiarCampos();
+                Alert.alert(
+                    'Información', 
+                    json.mensaje,
+                    [
+                    { text: 'OK', onPress: () => { navigation.navigate('especies') }},
+                    ],
+                    { cancelable: false }
+                );
+            })
+            .catch(err => {
+                console.log(err);
+                setLoading(false);
+            });
+        } else {
             Alert.alert(
-                'Información', 
-                json.mensaje,
+                'Error', 
+                'Ingrese el nombre de la especie.',
                 [
-                  { text: 'OK', onPress: () => { navigation.navigate('especies') }},
-                ],
-                { cancelable: false }
+                    { text: 'OK' },
+                ]
             );
-        })
-        .catch(err => {
-            console.log(err);
-            setLoading(false);
-        });
+        }
     }
 
     if (loading) {

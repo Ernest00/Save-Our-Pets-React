@@ -42,6 +42,13 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
         });
     }
 
+    const validarCampos = () => {
+        if (state.nombre == '' || state.especie == '') {
+            return false;
+        }
+        return true;
+    }
+
     const getEspecies = () => {
         fetch('https://api-save-our-pets.mktvirtual.net/api/especies', {
             headers: {
@@ -75,88 +82,108 @@ const Formulario = ({ titulo, textoBoton, icono, navigation, datos, accion }) =>
     }
 
     const crearRaza = () => {
-        let formData = new FormData();
-        
-        if (state.imagen !== undefined && state.imagen !== null) {
-            let localUri = state.imagen;
-            let filename = localUri.split('/').pop();
-            // Infer the type of the image
-            let match = /\.(\w+)$/.exec(filename);
-            let type = match ? `image/${match[1]}` : `image`;
-            formData.append('imagen', { uri: localUri, name: filename, type});
-        }
+        if (validarCampos()) {
+            let formData = new FormData();
+            
+            if (state.imagen !== undefined && state.imagen !== null) {
+                let localUri = state.imagen;
+                let filename = localUri.split('/').pop();
+                // Infer the type of the image
+                let match = /\.(\w+)$/.exec(filename);
+                let type = match ? `image/${match[1]}` : `image`;
+                formData.append('imagen', { uri: localUri, name: filename, type});
+            }
 
-        formData.append('nombre', state.nombre);
-        formData.append('id_especie', state.especie);
-        setLoading(true);
+            formData.append('nombre', state.nombre);
+            formData.append('id_especie', state.especie);
+            setLoading(true);
 
-        fetch('https://api-save-our-pets.mktvirtual.net/api/razas/crear', {
-            headers: {
-                'content-type': 'multipart/form-data'
-            },
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json()) 
-        .then(json => {
-            setLoading(false);
-            limpiarCampos();
+            fetch('https://api-save-our-pets.mktvirtual.net/api/razas/crear', {
+                headers: {
+                    'content-type': 'multipart/form-data'
+                },
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) 
+            .then(json => {
+                setLoading(false);
+                limpiarCampos();
+                Alert.alert(
+                    'Información', 
+                    json.mensaje,
+                    [
+                    { text: 'OK', onPress: () => { navigation.navigate('razas') }},
+                    ],
+                    { cancelable: false }
+                );
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(err);
+            });
+        } else {
             Alert.alert(
-                'Información', 
-                json.mensaje,
+                'Error', 
+                'Debe completar toda la información.',
                 [
-                  { text: 'OK', onPress: () => { navigation.navigate('razas') }},
-                ],
-                { cancelable: false }
+                    { text: 'OK' },
+                ]
             );
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(err);
-        });
+        }
     };
 
     const actualizarRaza = () => {
-        let formData = new FormData();
+        if (validarCampos()) {
+            let formData = new FormData();
 
-        if (state.imagen !== undefined && state.imagen !== null) {
-            let localUri = state.imagen;
-            let filename = localUri.split('/').pop();
-            // Infer the type of the image
-            let match = /\.(\w+)$/.exec(filename);
-            let type = match ? `image/${match[1]}` : `image`;
-            formData.append('imagen', { uri: localUri, name: filename, type});
-        }
+            if (state.imagen !== undefined && state.imagen !== null) {
+                let localUri = state.imagen;
+                let filename = localUri.split('/').pop();
+                // Infer the type of the image
+                let match = /\.(\w+)$/.exec(filename);
+                let type = match ? `image/${match[1]}` : `image`;
+                formData.append('imagen', { uri: localUri, name: filename, type});
+            }
 
-        formData.append('id_raza', state.id_raza)
-        formData.append('nombre', state.nombre);
-        formData.append('id_especie', state.especie);
-        setLoading(true);
+            formData.append('id_raza', state.id_raza)
+            formData.append('nombre', state.nombre);
+            formData.append('id_especie', state.especie);
+            setLoading(true);
 
-        fetch(`https://api-save-our-pets.mktvirtual.net/api/razas/actualizar/${state.id_raza}`, {
-            headers: {
-                'content-type' : 'multipart/form-data'
-            },
-            method: 'POST',
-            body: formData
-        })
-        .then(response => response.json()) 
-        .then(json => {
-            setLoading(false);
-            limpiarCampos();
+            fetch(`https://api-save-our-pets.mktvirtual.net/api/razas/actualizar/${state.id_raza}`, {
+                headers: {
+                    'content-type' : 'multipart/form-data'
+                },
+                method: 'POST',
+                body: formData
+            })
+            .then(response => response.json()) 
+            .then(json => {
+                setLoading(false);
+                limpiarCampos();
+                Alert.alert(
+                    'Información', 
+                    json.mensaje,
+                    [
+                    { text: 'OK', onPress: () => { navigation.navigate('razas') }},
+                    ],
+                    { cancelable: false }
+                );
+            })
+            .catch(err => {
+                setLoading(false);
+                console.log(err);
+            });
+        } else {
             Alert.alert(
-                'Información', 
-                json.mensaje,
+                'Error', 
+                'Debe completar toda la información.',
                 [
-                  { text: 'OK', onPress: () => { navigation.navigate('razas') }},
-                ],
-                { cancelable: false }
+                    { text: 'OK' },
+                ]
             );
-        })
-        .catch(err => {
-            setLoading(false);
-            console.log(err);
-        });
+        }
     }
 
     if (loading) {
